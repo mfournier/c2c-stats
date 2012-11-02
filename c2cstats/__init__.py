@@ -40,12 +40,16 @@ CACHE_TYPE = 'null'
 CACHE_DIR = '_cache'
 CACHE_THRESHOLD = 100
 LOGGING_FILE = 'c2cstats.log'
+# "Cache-Control: max-age" value sent by static files
+SEND_FILE_MAX_AGE_DEFAULT = 43200
 
 app = Flask(__name__)
 app.config.from_object(__name__)
 app.config.from_envvar('C2CSTATS_SETTINGS', silent=True)
 
 Environment.directory = os.path.join(CACHE_DIR, 'assets')
+# add version number in webasset objects URLs
+Environment.url_expire = True
 
 assets = Environment(app)
 cache = Cache(app)
