@@ -32,6 +32,8 @@ from flask import Flask, request, redirect, url_for, render_template, \
 from flask.ext.cache import Cache
 from flask.ext.assets import Environment
 
+import os
+
 # configuration
 SECRET_KEY = 'development key'
 CACHE_TYPE = 'null'
@@ -42,6 +44,8 @@ LOGGING_FILE = 'c2cstats.log'
 app = Flask(__name__)
 app.config.from_object(__name__)
 app.config.from_envvar('C2CSTATS_SETTINGS', silent=True)
+
+Environment.directory = os.path.join(CACHE_DIR, 'assets')
 
 assets = Environment(app)
 cache = Cache(app)
